@@ -3,10 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class Health : MonoBehaviour
 {
     [SerializeField] float maxHealth = 30f;
     private float currentHealth;
+
+    public Action dieEvent;
 
     void Start() {
         currentHealth = maxHealth;
@@ -19,6 +22,7 @@ public class Health : MonoBehaviour
     }
 
     void Die() {
+        dieEvent?.Invoke();
         Destroy(gameObject);
     }
 }

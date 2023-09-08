@@ -8,13 +8,18 @@ public class CannonTower : MonoBehaviour {
     [SerializeField] Transform shootPoint;
 
 	private float lastShotTime = -0.5f;
+	UnitsService unitsService;
 
-	void Update () {
+    private void Start() {
+		unitsService = Service<UnitsService>.Instance;
+	}
+
+    void Update () {
 		if (projectilePrefab == null || shootPoint == null)
 			return;
 
-		foreach (var monster in FindObjectsOfType<UnitMover>()) {
-			if (Vector3.Distance (transform.position, monster.transform.position) > range)
+		foreach (var unit in unitsService.UnitsOnLocation) {
+			if (Vector3.Distance (transform.position, unit.transform.position) > range)
 				continue;
 
 			if (lastShotTime + shootInterval > Time.time)
