@@ -2,29 +2,27 @@
 using System.Collections;
 
 public class CannonTower : MonoBehaviour {
-	public float m_shootInterval = 0.5f;
-	public float m_range = 4f;
-	public GameObject m_projectilePrefab;
-	public Transform m_shootPoint;
+    [SerializeField] float shootInterval = 0.5f;
+    [SerializeField] float range = 4f;
+    [SerializeField] GameObject projectilePrefab;
+    [SerializeField] Transform shootPoint;
 
-	private float m_lastShotTime = -0.5f;
+	private float lastShotTime = -0.5f;
 
 	void Update () {
-		if (m_projectilePrefab == null || m_shootPoint == null)
+		if (projectilePrefab == null || shootPoint == null)
 			return;
 
-		foreach (var monster in FindObjectsOfType<Monster>()) {
-			if (Vector3.Distance (transform.position, monster.transform.position) > m_range)
+		foreach (var monster in FindObjectsOfType<UnitMover>()) {
+			if (Vector3.Distance (transform.position, monster.transform.position) > range)
 				continue;
 
-			if (m_lastShotTime + m_shootInterval > Time.time)
+			if (lastShotTime + shootInterval > Time.time)
 				continue;
 
-			// shot
-			Instantiate(m_projectilePrefab, m_shootPoint.position, m_shootPoint.rotation);
+			Instantiate(projectilePrefab, shootPoint.position, shootPoint.rotation);
 
-			m_lastShotTime = Time.time;
+			lastShotTime = Time.time;
 		}
-
 	}
 }

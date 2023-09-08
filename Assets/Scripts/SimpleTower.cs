@@ -2,30 +2,32 @@
 using System.Collections;
 
 public class SimpleTower : MonoBehaviour {
-	public float m_shootInterval = 0.5f;
-	public float m_range = 4f;
-	public GameObject m_projectilePrefab;
+    [SerializeField] float shootInterval = 0.5f;
+    [SerializeField] float range = 4f;
+    [SerializeField] GameObject projectilePrefab;
 
 	private float m_lastShotTime = -0.5f;
 	
 	void Update () {
-		if (m_projectilePrefab == null)
+		if (projectilePrefab == null)
 			return;
 
-		foreach (var monster in FindObjectsOfType<Monster>()) {
-			if (Vector3.Distance (transform.position, monster.transform.position) > m_range)
+		foreach (var monster in FindObjectsOfType<UnitMover>()) {
+			if (Vector3.Distance (transform.position, monster.transform.position) > range)
 				continue;
 
-			if (m_lastShotTime + m_shootInterval > Time.time)
+			if (m_lastShotTime + shootInterval > Time.time)
 				continue;
 
-			// shot
-			var projectile = Instantiate(m_projectilePrefab, transform.position + Vector3.up * 1.5f, Quaternion.identity) as GameObject;
-			var projectileBeh = projectile.GetComponent<GuidedProjectile> ();
-			projectileBeh.m_target = monster.gameObject;
-
-			m_lastShotTime = Time.time;
-		}
-	
+			Shot(monster.gameObject);
+        }
 	}
+
+	void Shot(GameObject target) {
+        var projectile = Instantiate(projectilePrefab, transform.position + Vector3.up * 1.5f, Quaternion.identity);
+        var projectileBeh = projectile.GetComponent<GuidedProjectile>();
+		projectileBeh.SetTarget(target);
+
+        m_lastShotTime = Time.time;
+    }
 }
