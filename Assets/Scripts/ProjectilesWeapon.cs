@@ -1,29 +1,33 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class SimpleTower : MonoBehaviour {
+public class ProjectilesWeapon : MonoBehaviour 
+{
     [SerializeField] float shootInterval = 0.5f;
     [SerializeField] float range;
     [SerializeField] GameObject projectilePrefab;
+    [SerializeField] Transform shootPoint;
 
-	private float lastShotTime = -0.5f;
+    float lastShotTime = -0.5f;
     UnitsService unitsService;
 
-    private void Start() {
+    private void Start() 
+    {
         unitsService = Service<UnitsService>.Instance;
     }
     
-    void Update () {
+    void FixedUpdate () 
+    {
 		if (projectilePrefab == null)
 			return;
 
-		foreach (var unit in unitsService.UnitsOnLocation) {
+		foreach (var unit in unitsService.UnitsOnLocation) 
+        {
 			if (Vector3.Distance (transform.position, unit.transform.position) > range)
 			{
 				Debug.Log(Vector3.Distance(transform.position, unit.transform.position));
                 continue;
             }
-
 
 			if (lastShotTime + shootInterval > Time.time)
 				continue;
@@ -32,9 +36,10 @@ public class SimpleTower : MonoBehaviour {
         }
 	}
 
-	void Shot(GameObject target) {
-        var projectile = Instantiate(projectilePrefab, transform.position + Vector3.up * 1.5f, Quaternion.identity);
-        var projectileBeh = projectile.GetComponent<GuidedProjectile>();
+	void Shot(GameObject target)
+    {
+        var projectile = Instantiate(projectilePrefab, shootPoint.position, Quaternion.identity);
+        var projectileBeh = projectile.GetComponent<ProjectileBase>();
 		projectileBeh.SetTarget(target);
 
         lastShotTime = Time.time;

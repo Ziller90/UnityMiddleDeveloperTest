@@ -7,21 +7,25 @@ using UnityEngine;
 public class Health : MonoBehaviour
 {
     [SerializeField] float maxHealth = 30f;
-    private float currentHealth;
+
+    float currentHealth;
 
     public Action dieEvent;
 
-    void Start() {
+    void Start() 
+    {
         currentHealth = maxHealth;
     }
 
-    public void DeliverDamage(float damage) {
+    public void DeliverDamage(float damage) 
+    {
         currentHealth -= damage;
         if (currentHealth <= 0)
             Die();
     }
 
-    void Die() {
+    void Die()
+    {
         dieEvent?.Invoke();
         Destroy(gameObject);
     }

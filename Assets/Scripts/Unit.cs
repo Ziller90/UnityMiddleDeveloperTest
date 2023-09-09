@@ -6,6 +6,11 @@ public class Unit : MonoBehaviour
 {
     Health unitHealth;
 
+    void Start()
+    {
+        Service<UnitsService>.Instance.RegisterUnit(gameObject);
+    }
+
     void OnEnable()
     {
         unitHealth = GetComponent<Health>();
@@ -17,9 +22,5 @@ public class Unit : MonoBehaviour
     {
         if (unitHealth)
             unitHealth.dieEvent -= () => Service<UnitsService>.Instance.UnregisterUnit(gameObject);
-    }
-
-    void Start() {
-        Service<UnitsService>.Instance.RegisterUnit(gameObject);
     }
 }

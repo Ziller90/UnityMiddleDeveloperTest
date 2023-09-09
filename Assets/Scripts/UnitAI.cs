@@ -9,8 +9,6 @@ public class UnitAI : MonoBehaviour
     GameObject moveTarget;
     UnitMover unitMover;
 
-    public GameObject MoveTarget => moveTarget;
-
     private void Awake()
     {
         unitMover = GetComponent<UnitMover>();
@@ -22,7 +20,7 @@ public class UnitAI : MonoBehaviour
         unitMover.SetMoveTarget(moveTarget);
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if (Vector3.Distance(transform.position, moveTarget.transform.position) <= reachDistance)
         {

@@ -14,12 +14,14 @@ public class ApplicationServices : MonoBehaviour
     string instancePropertyName = nameof(Service<UnityEngine.Object>.Instance);
     string registerMethodName = nameof(Service<UnityEngine.Object>.Register);
 
-    private void Awake() {
+    void Awake() 
+    {
         foreach(var serviceObject in serviceObjects)
             RegisterService(serviceObject.GetComponent<MonoBehaviour>());
     }
 
-    void RegisterService(MonoBehaviour service) {
+    void RegisterService(MonoBehaviour service) 
+    {
         var newGenericType = serviceType.MakeGenericType(service.GetType());
         newGenericType.GetMethod(registerMethodName).Invoke(null, new[] { service });
     }
