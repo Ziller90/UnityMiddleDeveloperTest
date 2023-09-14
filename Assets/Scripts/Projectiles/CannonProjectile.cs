@@ -6,9 +6,8 @@ public class CannonProjectile : ProjectileBase
 	void FixedUpdate () 
 	{
         if (target == null)
-            return;
+            Destroy(gameObject);
         
-		var translation = transform.forward * speed;
-		transform.Translate(translation);
+		transform.position += transform.forward * speed * Time.fixedDeltaTime;
 	}
 }

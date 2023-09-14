@@ -7,6 +7,8 @@ public abstract class ProjectileBase : MonoBehaviour
 {
     [SerializeField] protected float speed = 0.2f;
 
+    public float Speed => speed;
+
     protected GameObject target;
 
     public delegate void TargetReached(GameObject target);

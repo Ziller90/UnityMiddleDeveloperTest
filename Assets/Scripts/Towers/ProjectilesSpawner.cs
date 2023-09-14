@@ -5,8 +5,11 @@ public class ProjectilesSpawner : MonoBehaviour
 {
     [SerializeField] float spawnInterval = 0.5f;
     [SerializeField] float range;
-    [SerializeField] GameObject projectilePrefab;
+    [SerializeField] ProjectileBase projectilePrefab;
     [SerializeField] Transform spawnPoint;
+
+    public Transform SpawnPoint => spawnPoint;
+    public ProjectileBase ProjectilePrefab => projectilePrefab; 
 
     float lastSpawnTime = -0.5f;
     GameObject attackTarget;
@@ -33,8 +36,7 @@ public class ProjectilesSpawner : MonoBehaviour
 
     void Shot()
     {
-        var projectile = Instantiate(projectilePrefab, spawnPoint.position, Quaternion.identity);
-        var projectileBeh = projectile.GetComponent<ProjectileBase>();
-		projectileBeh.SetTarget(attackTarget);
+        var projectile = Instantiate(projectilePrefab, spawnPoint.position, spawnPoint.rotation);
+        projectile.SetTarget(attackTarget);
     }
 }

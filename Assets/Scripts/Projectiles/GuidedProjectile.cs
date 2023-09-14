@@ -6,12 +6,9 @@ public class GuidedProjectile : ProjectileBase
 	void FixedUpdate () 
 	{
 		if (target == null)
-			return;
+			Destroy(gameObject);
 
-		var translation = target.transform.position - transform.position;
-		if (translation.magnitude > speed) {
-			translation = translation.normalized * speed;
-		}
-		transform.Translate (translation);
+		var targetDirection = target.transform.position - transform.position;
+		transform.position += targetDirection.normalized * speed * Time.fixedDeltaTime;
 	}
 }
