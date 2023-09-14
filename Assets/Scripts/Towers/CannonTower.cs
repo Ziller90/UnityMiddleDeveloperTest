@@ -111,7 +111,7 @@ public class CannonTower : MonoBehaviour
     {
         Gizmos.color = Color.green;
         Gizmos.DrawLine(verticalRotator.position, predictiveTargetPosition);
-        Gizmos.DrawSphere(predictiveTargetPosition, 1);
+        Gizmos.DrawSphere(predictiveTargetPosition, 0.4f);
 
         Gizmos.color = Color.red;
         Gizmos.DrawRay(verticalRotator.position, verticalRotator.forward * 100);

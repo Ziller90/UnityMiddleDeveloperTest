@@ -5,9 +5,7 @@ public class CannonProjectile : ProjectileBase
 {
 	void FixedUpdate () 
 	{
-        if (target == null)
-            Destroy(gameObject);
-        
-		transform.position += transform.forward * speed * Time.fixedDeltaTime;
+		if (target)
+			transform.position += transform.forward * speed * Time.fixedDeltaTime;
 	}
 }

@@ -4,11 +4,9 @@ using System.Collections;
 public class ProjectilesSpawner : MonoBehaviour 
 {
     [SerializeField] float spawnInterval = 0.5f;
-    [SerializeField] float range;
     [SerializeField] ProjectileBase projectilePrefab;
     [SerializeField] Transform spawnPoint;
 
-    public Transform SpawnPoint => spawnPoint;
     public ProjectileBase ProjectilePrefab => projectilePrefab; 
 
     float lastSpawnTime = -0.5f;

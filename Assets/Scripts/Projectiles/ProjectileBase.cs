@@ -22,6 +22,12 @@ public abstract class ProjectileBase : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         if (other.attachedRigidbody.gameObject == target)
-            targetReached(other.gameObject);
+            targetReached(other.attachedRigidbody.gameObject);
+    }
+
+    void Update()
+    {
+        if (!target)
+            Destroy(gameObject);
     }
 }
